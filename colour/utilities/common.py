@@ -28,8 +28,8 @@ __status__ = 'Production'
 __all__ = [
     'handle_numpy_errors', 'ignore_numpy_errors', 'raise_numpy_errors',
     'print_numpy_errors', 'warn_numpy_errors', 'ignore_python_warnings',
-    'batch', 'is_openimageio_installed', 'is_iterable', 'is_string',
-    'is_numeric', 'is_integer', 'filter_kwargs'
+    'batch', 'is_openimageio_installed', 'is_pandas_installed', 'is_iterable',
+    'is_string', 'is_numeric', 'is_integer', 'filter_kwargs'
 ]
 
 
@@ -177,6 +177,37 @@ def is_openimageio_installed(raise_exception=False):
     except ImportError as error:
         if raise_exception:
             raise ImportError(('"OpenImageIO" related Api features '
+                               'are not available: "{0}".').format(error))
+        return False
+
+
+def is_pandas_installed(raise_exception=False):
+    """
+    Returns if *Pandas* is installed and available.
+
+    Parameters
+    ----------
+    raise_exception : bool
+        Raise exception if *Pandas* is unavailable.
+
+    Returns
+    -------
+    bool
+        Is *Pandas* installed.
+
+    Raises
+    ------
+    ImportError
+        If *Pandas* is not installed.
+    """
+
+    try:
+        import pandas  # noqa
+
+        return True
+    except ImportError as error:
+        if raise_exception:
+            raise ImportError(('"Pandas" related Api features '
                                'are not available: "{0}".').format(error))
         return False
 
