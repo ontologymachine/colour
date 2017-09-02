@@ -8,9 +8,10 @@ from __future__ import division, unicode_literals
 
 import numpy as np
 import unittest
+from collections import OrderedDict
 
 from colour.utilities import (batch, is_iterable, is_string, is_numeric,
-                              is_integer, filter_kwargs)
+                              is_integer, filter_kwargs, first_item)
 
 __author__ = 'Colour Developers'
 __copyright__ = 'Copyright (C) 2013-2017 - Colour Developers'
@@ -21,7 +22,7 @@ __status__ = 'Production'
 
 __all__ = [
     'TestBatch', 'TestIsIterable', 'TestIsString', 'TestIsNumeric',
-    'TestIsInteger', 'TestFilterKwargs'
+    'TestIsInteger', 'TestFilterKwargs', 'TestFirstItem'
 ]
 
 
@@ -179,6 +180,25 @@ class TestFilterKwargs(unittest.TestCase):
 
         self.assertTupleEqual((1, 2, 3),
                               fn_c(1, **filter_kwargs(fn_c, b=2, c=3)))
+
+
+class TestFirstItem(unittest.TestCase):
+    """
+    Defines :func:`colour.utilities.common.first_item` definition units
+    tests methods.
+    """
+
+    def test_first_item(self):
+        """
+        Tests :func:`colour.utilities.common.first_item` definition.
+        """
+
+        self.assertEqual(first_item(range(10)), 0)
+
+        dictionary = OrderedDict([(0, 'a'), (1, 'b'), (2, 'c')])
+        self.assertEqual(first_item(dictionary.items()), (0, 'a'))
+
+        self.assertEqual(first_item(dictionary.values()), 'a')
 
 
 if __name__ == '__main__':

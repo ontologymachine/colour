@@ -29,7 +29,7 @@ __all__ = [
     'handle_numpy_errors', 'ignore_numpy_errors', 'raise_numpy_errors',
     'print_numpy_errors', 'warn_numpy_errors', 'ignore_python_warnings',
     'batch', 'is_openimageio_installed', 'is_pandas_installed', 'is_iterable',
-    'is_string', 'is_numeric', 'is_integer', 'filter_kwargs'
+    'is_string', 'is_numeric', 'is_integer', 'filter_kwargs', 'first_item'
 ]
 
 
@@ -377,3 +377,31 @@ def filter_kwargs(function, **kwargs):
         kwargs.pop(key)
 
     return kwargs
+
+
+def first_item(a):
+    """
+    Return the first item of an iterable.
+
+    Parameters
+    ----------
+    a : object
+        Iterable to get the first item from.
+
+    Returns
+    -------
+    object
+
+    Raises
+    ------
+    StopIteration
+        If the iterable is empty.
+
+    Examples
+    --------
+    >>> a = range(10)
+    >>> first_item(a)
+    0
+    """
+
+    return next(iter(a))
